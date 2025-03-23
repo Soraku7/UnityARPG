@@ -66,7 +66,13 @@ namespace UGG.Combat
                 {
                     //播放处决动画
                     _animator.Play("Execute_0", 0, 0f);
-
+                    
+                    //敌人消灭
+                    Destroy(currentTarget.gameObject , 3f);
+                   
+                    StartCoroutine(GameWinWait());
+                    
+                    
                     Time.timeScale = 1f;
                 }
                 else
@@ -200,6 +206,12 @@ namespace UGG.Combat
         public void SetAllowAttackInput(bool allow) => allowAttackInput = allow;
         
         #endregion
+
+        IEnumerator GameWinWait()
+        {
+            yield return new WaitForSeconds(3f);
+            UIManager.Instance.GameWin();
+        }
     }
 }
 

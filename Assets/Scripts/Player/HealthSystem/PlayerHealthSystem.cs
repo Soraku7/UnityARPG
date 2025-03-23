@@ -8,20 +8,26 @@ namespace UGG.Health
     public class PlayerHealthSystem : CharacterHealthSystemBase
     {
         private bool canExecute = false;
-
-        public float maxHealth = 100f;
-        public float currentHealth = 100f;
-        public float damageFromSword = 13f; // 每次碰到剑减少的血量
+        private CharacterHealthSystemBase _characterHealthSystemBase;
+        
 
         protected override void Update()
         {
             base.Update();
             OnHitLockTarget();
+
+            if (currentAttacker != null)
+            {
+                if(currentAttacker.GetComponent<CharacterHealthSystemBase>().currentHealth <= 0)
+                {
+                    canExecute = true;
+                }
+            }
+            
         }
 
         public override void TakeDamager(float damagar, string hitAnimationName, Transform attacker)
         {
-            currentHealth = Mathf.Max(0, currentHealth - damagar); // 扣血
             SetAttacker(attacker);
 
             if (CanParry())
@@ -32,16 +38,7 @@ namespace UGG.Health
             {
                 _animator.Play(hitAnimationName, 0, 0f);
                 GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.hit);
-            }
-        }
-
-        //新增碰撞检测：当玩家碰到敌人的剑时，减少血量
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("EnemyWeapon")) // 确保敌人武器有 "EnemyWeapon" 标签
-            {
                 currentHealth = Mathf.Max(0, currentHealth - damageFromSword);
-                Debug.Log($"玩家受到剑攻击，当前血量：{currentHealth}");
 
                 if (currentHealth <= 0)
                 {
@@ -50,10 +47,26 @@ namespace UGG.Health
             }
         }
 
+        // //新增碰撞检测：当玩家碰到敌人的剑时，减少血量
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     if (other.CompareTag("EnemyWeapon")) // 确保敌人武器有 "EnemyWeapon" 标签
+        //     {
+        //         currentHealth = Mathf.Max(0, currentHealth - damageFromSword);
+        //         Debug.Log($"玩家受到剑攻击，当前血量：{currentHealth}");
+        //
+        //         if (currentHealth <= 0)
+        //         {
+        //             Die();
+        //         }
+        //     }
+        // }
+
         private void Die()
         {
             Debug.Log("玩家死亡！");
-            // 这里可以添加死亡动画、复活逻辑等
+            Destroy(gameObject);
+            UIManager.Instance.GameOver();
         }
 
         #region Parry
@@ -76,6 +89,7 @@ namespace UGG.Health
                     GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.hit);
                     break;
                 case "Hit_D_Up":
+                    //弹刀处理
                     if (currentAttacker.TryGetComponent(out CharacterHealthSystemBase health))
                     {
                         health.FlickWeapon("Flick_0");
@@ -130,6 +144,5 @@ namespace UGG.Health
             currentHealth += addHealth;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         }
-
     }
 }

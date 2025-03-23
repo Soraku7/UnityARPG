@@ -22,7 +22,12 @@ namespace UGG.Health
         
         //HitAnimationMoveSpeedMult
         public float hitAnimationMoveMult;
-
+        
+        //生命值
+                
+        public float maxHealth = 100f;
+        public float currentHealth = 100f;
+        public float damageFromSword = 13f; // 每次碰到剑减少的血量
 
         protected virtual void Awake()
         {

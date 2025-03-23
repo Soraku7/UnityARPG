@@ -12,7 +12,6 @@ namespace UGG.Health
 
         [SerializeField] private int maxHitCount;
         [SerializeField] private int hitCount;//如果受伤次数超过最大受伤次数 触发脱身技能
-
         private void Start()
         {
             hitCount = 0;
@@ -61,7 +60,9 @@ namespace UGG.Health
                         GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.hit);
                         hitCount++;
                     }
-                } 
+                }
+                
+                currentHealth = Mathf.Max(0, currentHealth - damagar);
             }
         }
 

@@ -49,7 +49,7 @@ namespace UGG.Combat
                 {
                     if (attackDetectionTargets[i].TryGetComponent(out IDamagar damagar))
                     {
-                        damagar.TakeDamager(0, hitName, transform.root.transform);
+                        damagar.TakeDamager(10, hitName, transform.root.transform);
                     }
                 }
             }

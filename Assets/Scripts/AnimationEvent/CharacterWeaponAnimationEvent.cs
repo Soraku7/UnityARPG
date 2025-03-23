@@ -20,40 +20,29 @@ public class CharacterWeaponAnimationEvent : MonoBehaviour
         HitHideGS();
     }
 
-    /// <summary>
-    /// 显示大剑
-    /// </summary>
     public void ShowGS()
     {
-        //如果手部大剑是隐藏状态
         if (!handGS.gameObject.activeSelf)
         {
-            //显示手部大剑
+
             handGS.gameObject.SetActive(true);
 
-            //隐藏背部大剑
             hipGS.gameObject.SetActive(false);
-
-            //隐藏手部默认刀
+            
             handKatana.gameObject.SetActive(false);
         }
     }
 
-    /// <summary>
-    /// 隐藏大剑
-    /// </summary>
     public void HideGS()
     {
-        //如果手部大剑是显示状态
+
         if (handGS.gameObject.activeSelf)
         {
-            //隐藏手部大剑
+
             handGS.gameObject.SetActive(false);
-
-            //显示背部大剑
+            
             hipGS.gameObject.SetActive(true);
-
-            //显示手部默认刀
+            
             handKatana.gameObject.SetActive(true);
         }
     }

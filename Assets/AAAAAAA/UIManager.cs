@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyUnitTools;
 using UnityEngine;
 using UnityEngine.UI;
 using UGG.Health;
 
 
-public class UIManager : MonoBehaviour
+public class UIManager : SingletonBase<UIManager>
 {
     public Slider healthSlider;
     public Slider manaSlider;
     
     private PlayerHealthSystem playerHealth;
     private PlayerManaSystem playerMana;
-
+    
+    public GameObject gameOver;
+    
+    public GameObject gameWin;
     void Start()
     {
 
@@ -31,5 +35,14 @@ public class UIManager : MonoBehaviour
     {
         healthSlider.value = playerHealth.currentHealth;
         manaSlider.value = playerMana.currentMana;
+    }
+    
+    public void GameOver()
+    {
+        gameOver.SetActive(true);
+    }
+    public void GameWin()
+    {
+        gameWin.SetActive(true);
     }
 }
