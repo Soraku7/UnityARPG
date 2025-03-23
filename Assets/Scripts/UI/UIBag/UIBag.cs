@@ -26,12 +26,13 @@ public class UIBag : MonoBehaviour
     {
         gameObject.SetActive(false);
         Debug.Log("UseBtnOnClick");
+        Time.timeScale = 1;
     }
     
     private void UseBtnOnClick()
     {
         Debug.Log("UseBtnOnClick");
-        InventoryMannage._instance.UseItem();
+        InventoryMannage.Instance.UseItem();
         
     }
 }

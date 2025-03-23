@@ -26,8 +26,8 @@ public class Slot : MonoBehaviour
         //更新背包的描述信息栏的信息
         Debug.Log("更新物品信息");
         InventoryMannage.UpItemInfomation(slotInfo);
-        InventoryMannage._instance.curItem = slotItem;
-        Debug.Log(InventoryMannage._instance.curItem.itemName);
+        InventoryMannage.Instance.curItem = slotItem;
+        Debug.Log(InventoryMannage.Instance.curItem.itemName);
     }
 
     //物品的信息初始化设置

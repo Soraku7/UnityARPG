@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MyUnitTools;
 using UGG.Health;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryMannage : MonoBehaviour
+public class InventoryMannage : SingletonBase<InventoryMannage>
 {
-    public static InventoryMannage _instance;//设置成单例模式
 
     public InventoryBag playerBag;//玩家背包
     public GameObject slotGrid;//装备栏
@@ -22,9 +22,6 @@ public class InventoryMannage : MonoBehaviour
     public List<GameObject> slots=new List<GameObject>();//因为直接在装备栏生成18个装备，用一个集合来存储，并标记序号
     private void Awake()
     {
-        if(_instance!=null)
-            Destroy(this);
-        _instance = this;
         itemInfomation.text = "";
     }
 
@@ -39,23 +36,23 @@ public class InventoryMannage : MonoBehaviour
     public static void RestItem()
     {
         //删除所有的
-        for (int i = 0; i < _instance.slotGrid.transform.childCount; i++)
+        for (int i = 0; i < Instance.slotGrid.transform.childCount; i++)
         {
-            Destroy(_instance.slotGrid.transform.GetChild(i).gameObject);
-            _instance.slots.Clear();
+            Destroy(Instance.slotGrid.transform.GetChild(i).gameObject);
+            Instance.slots.Clear();
         }
 
         //添加
-        for (int i = 0; i <_instance.playerBag.bagList.Count; i++)
+        for (int i = 0; i <Instance.playerBag.bagList.Count; i++)
         {
             //CreatNewItem(instance.playerBag.bagList[i]);
-            _instance.slots.Add(Instantiate(_instance.emptslot));//物品集合添加物品
-            _instance.slots[i].transform.SetParent(_instance.slotGrid.transform);//让物品成为物品栏得到子集
+            Instance.slots.Add(Instantiate(Instance.emptslot));//物品集合添加物品
+            Instance.slots[i].transform.SetParent(Instance.slotGrid.transform);//让物品成为物品栏得到子集
             
-            if(_instance.slots[i].GetComponent<Slot>() == null) Debug.Log("Slot找不到");
+            if(Instance.slots[i].GetComponent<Slot>() == null) Debug.Log("Slot找不到");
             
-            _instance.slots[i].GetComponent<Slot>().slotId = i;//物品栏的物品序号初始化
-            _instance.slots[i].GetComponent<Slot>().SetupSlot(_instance.playerBag.bagList[i]);//物品信息的初始化
+            Instance.slots[i].GetComponent<Slot>().slotId = i;//物品栏的物品序号初始化
+            Instance.slots[i].GetComponent<Slot>().SetupSlot(Instance.playerBag.bagList[i]);//物品信息的初始化
         }
     }
 
@@ -65,7 +62,7 @@ public class InventoryMannage : MonoBehaviour
     /// <param name="info"></param>
     public static void UpItemInfomation(string info)
     {
-        _instance.itemInfomation.text = info;
+        Instance.itemInfomation.text = info;
     }
 
     /// <summary>
@@ -106,18 +103,17 @@ public class InventoryMannage : MonoBehaviour
     /// 获取物品
     /// </summary>
     /// <param name="thisItem">当前物品</param>
-    /// <param name="thisBag">当前添加物品的背包</param>
-    void AddItem(Item thisItem ,InventoryBag thisBag)
+    public void AddItem(Item thisItem)
     {
-        if (!thisBag.bagList.Contains(thisItem))
+        if (!playerBag.bagList.Contains(thisItem))
         {
             //thisBag.bagList.Add(thisItem);
-            //遍历背包，如果为null的话就设置成该物品，因为我们直接给装备栏添加了18个物品，只是初始化都是null
-            for (int i = 0; i < thisBag.bagList.Count; i++)
+            //遍历背包，如果为null的话就设置成该物品，
+            for (int i = 0; i < playerBag.bagList.Count; i++)
             {
-                if (thisBag.bagList[i] == null)
+                if (playerBag.bagList[i] == null)
                 {
-                    thisBag.bagList[i] = thisItem;
+                    playerBag.bagList[i] = thisItem;
                     break;
                 }
             }
@@ -126,19 +122,20 @@ public class InventoryMannage : MonoBehaviour
         {
             thisItem.itemHeld += 1;//如果存在该物品，就将数量+1；
         }
-        InventoryMannage.RestItem();//更新背包的数据
+        
+        RestItem();//更新背包的数据
     }
     
 
     public void AddHp()
     {
-        PlayerHealthSystem playerHealthSystem = _instance.player.GetComponent<PlayerHealthSystem>();
+        PlayerHealthSystem playerHealthSystem = Instance.player.GetComponent<PlayerHealthSystem>();
         playerHealthSystem.RecoverHealth(10);
     }
 
     public void AddMp()
     {
-        PlayerManaSystem playerManaSystem = _instance.player.GetComponent<PlayerManaSystem>();
+        PlayerManaSystem playerManaSystem = Instance.player.GetComponent<PlayerManaSystem>();
         playerManaSystem.RecoverMana(10);
     }
 }
