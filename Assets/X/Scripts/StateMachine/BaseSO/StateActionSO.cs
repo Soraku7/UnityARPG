@@ -8,14 +8,14 @@ using System.Security.Permissions;
 
 public abstract class StateActionSO : ScriptableObject
 {
-    //引用
+    //锟斤拷锟斤拷
     protected AICombatSystem _combatSystem;
     protected AIMovement _movement;
     protected AIHealthSystem _healthSystem;
     protected Animator _animator;
     protected Transform self;
 
-    [SerializeField, Header("状态优先级")] protected int statePriority;//状态优先级
+    [SerializeField] protected int statePriority;
 
 
     //animationID
@@ -26,7 +26,7 @@ public abstract class StateActionSO : ScriptableObject
     protected int lAtkID = Animator.StringToHash("LAtk");
     protected int runID = Animator.StringToHash("Run");
 
-    //移动速度
+    //锟狡讹拷锟劫讹拷
     protected float walkSpeed = 1.5f;
     protected float runSpeed = 5f;
     [SerializeField] protected float currentMoveSpeed;
@@ -70,10 +70,6 @@ public abstract class StateActionSO : ScriptableObject
     public abstract void OnUpdate();
 
     public virtual void OnExit() { }
-
-    /// <summary>
-    /// 获取状态优先级
-    /// </summary>
-    /// <returns></returns>
+    
     public int GetStatePriority() => statePriority;
 }

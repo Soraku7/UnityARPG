@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerManaSystem1 : MonoBehaviour
+public class PlayerDialpgue : MonoBehaviour
 {
     public GameObject panel; // UI对话框
     public Text dialogueText; // 显示对话的 Text

@@ -138,7 +138,6 @@ namespace UGG.Move
             }
 
             //玩家移动
-            //优化：先乘浮点再对向量进行运算可以增加运算速度
             control.Move((characterCurrentMoveSpeed * Time.deltaTime) * movementDirection.normalized + Time.deltaTime * new Vector3(0.0f, verticalSpeed, 0.0f));
             //control.Move(movementDirection.normalized * (characterCurrentMoveSpeed * Time.deltaTime) + new Vector3(0.0f, verticalSpeed, 0.0f) * Time.deltaTime);
         }

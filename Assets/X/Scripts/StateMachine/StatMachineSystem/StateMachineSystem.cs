@@ -27,7 +27,7 @@ public class StateMachineSystem : MonoBehaviour
 
     private void StateMachineTick()
     {
-        transition?.TryGetApplyCondition();//每一帧都去找是否有成立的条件
+        transition?.TryGetApplyCondition();
         currentState?.OnUpdate();
 
 

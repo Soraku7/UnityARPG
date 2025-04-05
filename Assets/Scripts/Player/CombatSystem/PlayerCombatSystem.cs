@@ -164,8 +164,7 @@ namespace UGG.Combat
         {
             //检测球体范围内的目标
             int targetCount = Physics.OverlapSphereNonAlloc(detectionCenter.position, detectionRang, detectionedTarget, enemyLayer);
-
-            //后续功能补充
+            
             if (targetCount > 0)
             {
                 SetCurrentTarget(detectionedTarget[0].transform);

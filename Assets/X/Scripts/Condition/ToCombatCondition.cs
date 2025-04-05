@@ -7,7 +7,6 @@ public class ToCombatCondition : ConditionSO
 {
     public override bool ConditionSetUp()
     {
-        //如果当前目标不等于空返回true 否则返回false
         return (_combatSystem.GetCurrentTarget() != null) ? true : false;
     }
 }

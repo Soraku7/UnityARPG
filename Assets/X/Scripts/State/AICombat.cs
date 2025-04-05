@@ -30,7 +30,6 @@ public class AICombat : StateActionSO
     {
         if(currentSkill == null)
         {
-            //如果当前没技能 就执行AI移动函数
             NoCombatMove();
             GetSkill();
         }
@@ -55,7 +54,6 @@ public class AICombat : StateActionSO
 
     private void NoCombatMove()
     {
-        //如果动画处于Motion状态
         if (_animator.CheckAnimationTag("Motion"))
         {
             if (_combatSystem.GetCurrentTargetDistance() < 2f + 0.1f)

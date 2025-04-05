@@ -19,10 +19,7 @@ public abstract class CombatSkillBase : ScriptableObject
     protected int horizontalID = Animator.StringToHash("Horizontal");
     protected int verticalID = Animator.StringToHash("Vertical");
     protected int runID = Animator.StringToHash("Run");
-
-    /// <summary>
-    /// 调用技能
-    /// </summary>
+    
     public abstract void InvokeSkill();
 
     protected void UseSkill()
@@ -34,13 +31,11 @@ public abstract class CombatSkillBase : ScriptableObject
 
     public void ResetSkill()
     {
-        //技能CD
-        //从对象池拿一个计时器 通过拿出来的计时器获取它计时脚本中的创建计时器函数
-        //当传入的的时间递减为0时 内部会执行委托：skillIsDone=true
+
         GameObjectPoolSystem.Instance.TakeGameObject("Timer").GetComponent<Timer>().CreateTime(skillCDTime, () => skillIsDone = true, false);
     }
 
-    #region 接口
+    #region 
 
     public void InitSkill(Animator _animator, AICombatSystem _combat, CharacterMovementBase _movement)
     {

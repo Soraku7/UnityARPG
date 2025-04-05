@@ -1059,7 +1059,7 @@ MonoBehaviour:
   healthSlider: {fileID: 686146158}
   manaSlider: {fileID: 1499141641}
   gameOver: {fileID: 1091445924}
-  gameWin: {fileID: 0}
+  gameWin: {fileID: 1461599036}
 --- !u!1 &562533159 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5882227801578399405, guid: cbbe2a4cf64b4044e9f3cc0725cd7a11, type: 3}
@@ -3144,7 +3144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1461599037
 RectTransform:
   m_ObjectHideFlags: 0
