@@ -13,6 +13,8 @@ public class PlayerDialpgue : MonoBehaviour
     private bool isTyping = false; // 是否正在逐字显示
     private bool hasTriggered = false; // 防止重复触发
 
+	public GameObject Enemy;
+
     private string[] dialogues = new string[]
     {
         "NPC：你好，你知道游戏规则吗？请按L键继续对话",
@@ -28,9 +30,9 @@ public class PlayerDialpgue : MonoBehaviour
             panel.SetActive(false); // 初始隐藏对话框
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && !hasTriggered) // 只有 Player 触碰到才触发
+        if (other.CompareTag("Player") && !hasTriggered && Input.GetKeyDown(KeyCode.L)) // 只有 Player 触碰到才触发
         {
             hasTriggered = true;
             ShowPanel();
@@ -95,5 +97,6 @@ public class PlayerDialpgue : MonoBehaviour
         if (panel != null)
             panel.SetActive(false);
         Time.timeScale = 1; // 恢复游戏
+        Enemy.SetActive(true);
     }
 }

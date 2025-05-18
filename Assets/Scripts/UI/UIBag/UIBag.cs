@@ -26,6 +26,7 @@ public class UIBag : MonoBehaviour
     {
         gameObject.SetActive(false);
         Debug.Log("UseBtnOnClick");
+		Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }
     
