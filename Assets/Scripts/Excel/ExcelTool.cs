@@ -141,7 +141,7 @@ public class ExcelTool
         //没有路径创建路径
         if (!Directory.Exists(BinaryDataMgr.DATA_BINARY_PATH))
             Directory.CreateDirectory(BinaryDataMgr.DATA_BINARY_PATH);
-
+        Debug.Log(BinaryDataMgr.DATA_BINARY_PATH + table.TableName + ".zhou");
         //创建一个2进制文件进行写入
         using (FileStream fs = new FileStream(BinaryDataMgr.DATA_BINARY_PATH + table.TableName + ".zhou", FileMode.OpenOrCreate, FileAccess.Write))
         {

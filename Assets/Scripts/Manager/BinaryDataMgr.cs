@@ -116,7 +116,8 @@ public class BinaryDataMgr
             }
 
             //把读取完的表记录下来
-            tableDic.Add(typeof(T).Name, contaninerObj);
+            if(!tableDic.ContainsKey(typeof(T).Name))
+                tableDic.Add(typeof(T).Name, contaninerObj);
             fs.Close();
 
         }
